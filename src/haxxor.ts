@@ -1,16 +1,11 @@
 // Import modules.
 import { Preload } from '#manager'
-import { Client, Intents, Options } from 'discord.js'
+import { Client, Options } from 'discord.js'
 import { readdirSync } from 'fs'
 
 // Define "global" properties.
 declare global {
     var Client: object
-}
-
-// Define client interface.
-export default interface Haxxor {
-    _util: object
 }
 
 /**
@@ -23,12 +18,12 @@ export default class Haxxor extends Client {
     public constructor() {
         super({
             restTimeOffset: 100,
-            intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS'].map(i => (Intents as any).FLAGS[i]),
+            intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS'],
             makeCache: Options.cacheWithLimits({ MessageManager: { maxSize: 200, sweepInterval: 5 * 60000 } })
         })
 
         // Preload and define util functions.
-        this._util = new Preload()
+        new Preload(this)
 
         // Load client events.
         for (let event of readdirSync('./lib/events')) this.on(event.replace(/\.js/g, ''), (...params) => import(`./events/${event}`).then(event => new event.default(...params)))

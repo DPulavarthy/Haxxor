@@ -1,8 +1,11 @@
+// Import modules.
+import { Client, Message } from "discord.js"
+
 /**
  * All client events should extend this base class.
  */
 export default class Events {
-    public constructor(...derive: any) {
+    public constructor(...derive: Array<Client | Message>) {
 
         // Merge client parameters with "this" for ease of access.
         Object.mergify(this, ...derive)

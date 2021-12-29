@@ -1,5 +1,7 @@
 // Import modules.
 import { config } from 'dotenv'
+import { Mention as MentionHandler } from '#manager'
+import { Client } from 'discord.js'
 
 // Define global interfaces.
 declare global {
@@ -36,12 +38,6 @@ declare global {
     }
 }
 
-// Define preload interface.
-export default interface Preload {
-    exists: Function
-    mergify: Function
-}
-
 /**
  * Do this before the actual program (not process) starts.
  * 
@@ -49,7 +45,9 @@ export default interface Preload {
  * @example new Preload()
  */
 export default class Preload {
-    public constructor() {
+    public constructor(client: Client | any) {
+
+        client._util = {}
 
         // Load <ENV> variables.
         config()
@@ -58,17 +56,21 @@ export default class Preload {
         this.required()
 
         // Check if type is "Array" and at least one value exists within.
-        this.exists = Array.prototype.exists = function (): boolean {
+        client._util.exists = Array.prototype.exists = function (): boolean {
             return Array.isArray(this) && this?.some((e: any) => e)
         }
 
         // Merge multiple objects into one.
-        this.mergify = Object.mergify = function (main: object, ...secondary: Array<object>) {
+        client._util.mergify = Object.mergify = function (main: object, ...secondary: Array<object>) {
             secondary.map((o: object) => Object.keys(o).map((k: string) => (main as any)[k] = (o as any)[k]))
             return main
         }
+
+        // Load commands of type mention.
+        new MentionHandler(client)
     }
 
+    // Check if all required <ENV> variables exist.
     required() {
         for (let id of ['TOKEN']) if (!process.env[id]) throw new ReferenceError(`Identifier <ENV>[${id}] was not declared`)
     }

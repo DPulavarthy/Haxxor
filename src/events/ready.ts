@@ -1,5 +1,6 @@
 // Import modules.
 import { Events } from '#manager'
+import { Client } from 'discord.js'
 
 // Define event interface.
 export default interface Ready {
@@ -15,7 +16,7 @@ export default interface Ready {
  * @example new Ready(<Client>)
  */
 export default class Ready extends Events {
-    public constructor(client: any) {
+    public constructor(client: Client) {
         super(client)
 
         // Log ready event.
