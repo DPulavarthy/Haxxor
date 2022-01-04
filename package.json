@@ -1,19 +1,22 @@
 {
   "name": "haxxor",
-  "author": "Dhanush Pulavarthy",
   "version": "1.0.0",
+  "description": "",
   "main": "./lib/haxxor.js",
   "types": "./lib/haxxor.d.ts",
   "imports": {
     "#manager": "./lib/util/manager.js"
   },
   "scripts": {
-    "prestart": "npm run build",
-    "start": "node .",
-    "build": "npx tsc"
+    "build": "node . -mode build",
+    "start": "node . -mode start",
+    "test": "node . -mode test"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "discord.js": "^13.4.0",
+    "discord.js": "^13.5.0",
     "dotenv": "^10.0.0",
     "typescript": "^4.5.4"
   }
