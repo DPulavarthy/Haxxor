@@ -3,11 +3,6 @@ import { Preload } from '#manager'
 import { Client, Options } from 'discord.js'
 import { readdirSync } from 'fs'
 
-// Define "global" properties.
-declare global {
-    var Client: object
-}
-
 /**
  * Create and login to Discord client with custom properties.
  * 
@@ -23,10 +18,10 @@ export default class Haxxor extends Client {
         })
 
         // Preload and define util functions.
-        new Preload(this)
+        new Preload(this as any)
 
         // Load client events.
-        for (let event of readdirSync('./lib/events')) this.on(event.replace(/\.js/g, ''), (...params) => import(`./events/${event}`).then(event => new event.default(...params)))
+        for (let event of readdirSync('./lib/events').filter(evt => evt.endsWith('.js'))) this.on(event.split('.')[0], (...params) => import(`./events/${event}`).then(event => new event.default(this, ...params)))
 
         // Login to client.
         this.login(process.env.TOKEN).catch(error => { throw new ReferenceError(error) })

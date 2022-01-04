@@ -8,11 +8,11 @@ import { Command } from "#manager"
  * @example new Mention(<Client>) [Implementation may vary]
  */
 export default class Build extends Command {
-    public constructor(client: any) {
+    public constructor(client: ClientExtender) {
         super(client, { about: 'A test command' })
     }
 
-    async run() {
-        console.log('Hi')
+    async run(client: ClientExtender, message: MessageExtender) {
+        
     }
 }

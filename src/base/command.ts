@@ -1,9 +1,9 @@
 // Import modules.
-import { Client } from 'discord.js'
+import { Message } from 'discord.js'
 
 // Define Command interface.
 export default interface Command {
-    client: Client
+    client: ClientExtender
     title: string
     about: string
     group: string
@@ -15,7 +15,11 @@ export default interface Command {
  * All client commands should extend this base class.
  */
 export default class Command {
-    public constructor(client: Client, { title = '', about = '', group = '', lines = 0 }) {
+    public constructor(client: ClientExtender, { title = '', about = '', group = '', lines = 0 }) {
         Object.mergify(this, { client, title, about, lines, group })
+    }
+
+    public run(client: ClientExtender, message: Message | any) {
+        throw new ReferenceError(`The ${message.command} command does not have a run configuration on ${client.user?.username}.`)
     }
 }

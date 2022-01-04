@@ -23,7 +23,7 @@ export default class Ready extends Events {
         console.log(this.toString())
     }
 
-    toString() {
+    private toString() {
         return `${this.user?.tag ?? 'Client'} successfully connected.`
     }
 }

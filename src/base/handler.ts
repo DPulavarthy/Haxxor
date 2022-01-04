@@ -1,5 +1,5 @@
 // Import modules.
-import { Client, Collection } from 'discord.js'
+import { Client } from 'discord.js'
 import { readdirSync } from 'fs'
 
 // Define Handler interface.
@@ -12,12 +12,10 @@ export default interface Handler {
  * All client handlers should extend this base class.
  */
 export default class Handler {
-    public constructor(client: Client, mention?: boolean) {
-
-        (client as any)[mention ? '_mention' : '_slash'] = new Collection()
+    public constructor(client: Client) {
 
         // Merge client parameters with "this" for ease of access.
-        Object.mergify(this, client, { _approved: 0, _rejected: [] })
+        Object.mergify(this, client)
     }
 
     // Recursively read a provided directory and run the callback function.
