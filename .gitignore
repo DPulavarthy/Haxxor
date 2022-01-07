@@ -1,0 +1,14 @@
+# Build Path
+/lib
+
+# Modules
+/node_modules
+
+# Environmental variables
+.env
+
+# Package
+package-lock.json
+
+# MacOS file
+.DS_Store

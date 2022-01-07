@@ -1,20 +1,21 @@
 {
   "name": "haxxor",
   "version": "1.0.0",
-  "description": "",
+  "description": "A helper bot",
   "main": "./lib/haxxor.js",
   "types": "./lib/haxxor.d.ts",
   "imports": {
     "#manager": "./lib/util/manager.js"
   },
   "scripts": {
-    "build": "node . -mode build",
-    "start": "node . -mode start",
-    "test": "node . -mode test"
+    "build": "npx tsc",
+    "prestart": "node util/cleanup.mjs",
+    "start": "npx tsc",
+    "poststart": "node ."
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Dhanush Pulavarthy",
+  "license": "GNU",
   "dependencies": {
     "discord.js": "^13.5.0",
     "dotenv": "^10.0.0",
