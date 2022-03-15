@@ -5,4 +5,4 @@ import { rmSync } from 'fs'
 rmSync('./lib', { recursive: true, force: true })
 
 // Log completion.
-console.log('Clean-up complete!')
+console.log('\u001b[32m[SYSTEM]: Clean complete!\u001b[0m')

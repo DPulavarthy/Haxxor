@@ -8,10 +8,11 @@
     "#manager": "./lib/util/manager.js"
   },
   "scripts": {
+    "prebuild": "node util/cleanup.mjs",
     "build": "npx tsc",
-    "prestart": "node util/cleanup.mjs",
-    "start": "npx tsc",
-    "poststart": "node ."
+    "postbuild": "ECHO \u001b[32m[SYSTEM]: Build complete!\u001b[0m",
+    "prestart": "npm run build --silent",
+    "start": "node ."
   },
   "keywords": [],
   "author": "Dhanush Pulavarthy",

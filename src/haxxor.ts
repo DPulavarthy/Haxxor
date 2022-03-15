@@ -11,23 +11,11 @@
 
 // client.login(process.env.TOKEN)
 
-// process.on('SIGINT', e => {
-//     client?.destroy()
-//     process.exit(1)
-// })
-
-// process.on('uncaughtException', error => {
-//     console.log(error)
-//     process.exit(1)
-// })
 
 
 // Import modules.
-import { Preload } from '#manager'
-import { config } from 'dotenv'
+import { Preloader } from '#manager'
 import { Client, Options } from 'discord.js'
-
-config()
 
 /**
  * Create and login to Discord client with custom properties.
@@ -43,16 +31,16 @@ export default class Haxxor extends Client {
             makeCache: Options.cacheWithLimits({ MessageManager: { maxSize: 200, sweepInterval: 5 * 60000 } })
         })
 
+        new Preloader(this)
+
+        this.on('ready', () => {
+            global.client(`Connected to ${this.user?.tag}`)
+        })
+
         // Login to client.
-        // this.login(process.env.TOKEN).catch(error => { throw new ReferenceError(error) })
+        this.login(process.env.TOKEN).catch(error => { throw new ReferenceError(error) })
     }
 }
 
 // Globally define client.
-// new Haxxor()
-
-(async () => {
-    let x = await Preload.run.catch(e => e)
-
-    console.log(x)
-})()
+global.Client = new Haxxor()
