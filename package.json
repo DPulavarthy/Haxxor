@@ -1,0 +1,35 @@
+{
+  "name": "haxxor",
+  "version": "1.0.0",
+  "description": "Your personal Discord assistant.",
+  "main": "lib/index.js",
+  "imports": {
+    "#manager": "./lib/util/manager.js",
+    "#util/*": "./lib/util/*.js"
+  },
+  "scripts": {
+    "prebuild": "node util/cleanup.mjs",
+    "build": "npx tsc",
+    "postbuild": "ECHO \u001b[32m[SYSTEM]: Build complete!\u001b[0m",
+    "prestart": "npm run build --silent",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DPulavarthy/Haxxor.git"
+  },
+  "keywords": [],
+  "author": "Kurasad",
+  "license": "GNU",
+  "bugs": {
+    "url": "https://github.com/DPulavarthy/Haxxor/issues"
+  },
+  "homepage": "https://github.com/DPulavarthy/Haxxor#readme",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "discord.js": "^14.2.0",
+    "dotenv": "^16.0.1"
+  }
+}
